@@ -233,6 +233,35 @@ if ($accion === 'cantidad') {
 }
 
 /* ------------------------------------------------------------
+   COMPRADO: marca si el producto ya se recogio en la lista
+------------------------------------------------------------ */
+if ($accion === 'comprado') {
+    $nombre = trim((string) ($datos['nombre'] ?? ''));
+    if ($nombre === '') {
+        responderError('Falta el nombre del producto');
+    }
+    if (!array_key_exists('comprado', $datos) || !is_bool($datos['comprado'])) {
+        responderError('El estado del producto no es valido');
+    }
+
+    $producto = buscarProducto($bd, $nombre);
+    $actualizar = $bd->prepare(
+        'UPDATE carrito SET comprado = ? WHERE usuario_id = ? AND producto_id = ?'
+    );
+    $actualizar->execute([
+        $datos['comprado'] ? 1 : 0,
+        $usuarioId,
+        (int) $producto['id'],
+    ]);
+
+    echo json_encode(
+        ['ok' => true, 'accion' => 'comprado', 'carrito' => construirCarrito($bd, $usuarioId)],
+        JSON_UNESCAPED_UNICODE
+    );
+    exit;
+}
+
+/* ------------------------------------------------------------
    ELIMINAR un producto del carrito
 ------------------------------------------------------------ */
 if ($accion === 'eliminar') {

@@ -507,7 +507,7 @@ function crearPedido(PDO $bd, array $usuario, array $datos, bool $pagoMercadoPag
         $pedidoQ->execute([
             $folio,
             $usuarioId,
-            (int) $tienda['id'],
+            $tienda['id'],
             $modalidad,
             $nombreCompleto !== '' ? $nombreCompleto : 'Cliente',
             $telefono,

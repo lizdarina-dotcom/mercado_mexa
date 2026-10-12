@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* =====================================================
    MERCADO MEXA - Conexion a la base de datos
    ESTA ES LA COPIA DE EJEMPLO: no tiene tu contrasena.
@@ -17,7 +17,7 @@ function conectarBD() {
         'host'    => 'localhost',
         'db'      => 'mercado_mexa',
         'user'    => 'root',
-        'pass'    => ',   // en XAMPP el usuario root va vacio
+        'pass'    => '',   // en XAMPP el usuario root va vacio
         'charset' => 'utf8mb4',
     ];
 

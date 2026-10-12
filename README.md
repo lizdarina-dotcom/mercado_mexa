@@ -1,5 +1,27 @@
 # MERCADO MEXA
 
+## Estructura MVC del frontend
+
+`index.html` conserva la estructura de la página y carga un único punto de entrada: `js/app.js`. Ese archivo carga las dependencias y los módulos en este orden: modelos, vistas y controladores.
+
+- `app/models/`: estado compartido, acceso a la API, datos y reglas de negocio.
+- `app/views/`: renderizado del catálogo, carrito, favoritos, tiendas y búsqueda.
+- `app/controllers/`: eventos y coordinación de cada flujo, incluido checkout y roles.
+- `css/`: presentación visual. `api/`: endpoints PHP del servidor.
+
+Flujo de ejemplo del catálogo: `AppController` inicia la carga; `CatalogoController` pide los datos a `CatalogoModel`; después, el controlador actualiza la pantalla mediante `CatalogoView`.
+
+## Base de datos local existente
+
+Si `mercado_mexa` ya existía con el esquema anterior, ejecuta una sola vez
+`database/migracion_esquema_mvc.sql` después de guardar un respaldo. La migración
+conserva las cuentas, productos, tiendas y datos existentes, y agrega los campos
+que necesitan los endpoints actuales. Para activar los botones de acceso rápido
+de demostración, ejecuta también `database/semillas_cuentas_demo.sql`.
+
+La conexión local de XAMPP se configura en `config/bd.php`; el archivo está
+excluido de Git para evitar publicar credenciales.
+
 ## Mercado Pago (Checkout Pro)
 
 El checkout redirige a Mercado Pago Checkout Pro. Los datos de tarjeta se capturan
@@ -29,3 +51,5 @@ entorno del servidor. Valida primero el flujo con credenciales de prueba.
 Al confirmarse el pago, el cliente puede descargar el ticket PDF y abrir WhatsApp
 con un mensaje preparado. Por seguridad y las limitaciones de WhatsApp Web, debe
 adjuntar manualmente el PDF descargado en la conversación.
+
+
